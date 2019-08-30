@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
-import Table from './page/table.js';
-import Detail from './page/detail.js';
-import './App.css';
+import router from './router'
+import './theme.css';
 
 class App extends Component {
   render() {
@@ -10,28 +9,26 @@ class App extends Component {
       <div className="App">
         <BrowserRouter>
           <ul>
-            <li>
-              <Link to="/">
-                <span>Index</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/document">
-                <span>Document</span>
-              </Link>
-            </li>
-            <li>
-              <span>Libary</span>
-            </li>
-            <li>
-              <span>Contact</span>
-            </li>
-            <li>
-              <span>Others</span>
-            </li>
+            {
+              router.map((val, index) => {
+                if (val.meta.nav) {
+                  return (
+                    <li key={index}>
+                      <Link to={val.path}>
+                        <span>{val.meta.title}</span>
+                      </Link>
+                    </li>
+                  )
+                }
+                return false
+              })
+            }
           </ul>
-          <Route exact path="/" key="1" component={Table}></Route>
-          <Route exact path="/document" key="2" component={Detail}></Route>
+          {
+            router.map((val, index) => {
+              return (<Route exact path={val.path} key={index} component={val.component}></Route>)
+            })
+          }
         </BrowserRouter>
       </div>
     );

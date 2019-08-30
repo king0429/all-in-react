@@ -16,7 +16,7 @@ class innerTable extends Component {
   }
   componentWillMount () {
     const that = this
-    axios.get('/json').then(res => {
+    axios.get('/table').then(res => {
       console.log(res)
       if (res.status === 200) {
         function GET_LIST(payload) {
@@ -52,7 +52,7 @@ class innerTable extends Component {
     return (
       <div className="show_table">
         <p>{this.state.title}</p>
-        <Table dataSource={this.state.list} columns={columns}></Table>
+        <Table dataSource={this.state.list} columns={columns} center={true}></Table>
       </div>
     )
   }
